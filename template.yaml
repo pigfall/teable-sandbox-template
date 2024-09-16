@@ -17,7 +17,7 @@ workspaces:
         repo:
           git: https://github.com/teableio/teable.git
         version_spec: v1.4.0
-    base_snapshot: oci://docker.io/koitown/teable-dev:tmp8
+    base_snapshot: oci://docker.io/koitown/teable-dev:1.4.0
     env:
       - PATH=$PATH:/usr/local/.nvm/versions/node/v20.17.0/bin
     system:
