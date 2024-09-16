@@ -1,0 +1,29 @@
+endpoints:
+  - name: dev
+    http:
+      routes:
+        - backend:
+            target: app
+            port: dev
+          path_prefix: /
+workspaces:
+  - name: app
+    ports:
+      - name: dev
+        port: 3000
+        protocol: HTTP/TCP
+    checkouts:
+      - path: teable
+        repo:
+          git: https://github.com/teableio/teable.git
+        version_spec: v1.4.0
+    base_snapshot: oci://docker.io/koitown/teable-dev:tmp8
+    env:
+      - PATH=$PATH:/usr/local/.nvm/versions/node/v20.17.0/bin
+    system:
+      daemons:
+        - name: backend
+          run:
+            cmd: bash -c 'corepack enable && pnpm install && echo 1 | make switch-db-mode && cd apps/nestjs-backend && pnpm dev'
+            dir: /home/owner/teable
+
